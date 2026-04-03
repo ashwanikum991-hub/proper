@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile | Infoduction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            --glass-bg: rgba(255, 255, 255, 0.15);
+            --input-bg: rgba(255, 255, 255, 0.2);
+            --accent: #00f2fe;
+        }
+
+        body {
+            background: var(--primary-gradient);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+        }
+
+        .edit-container {
+            width: 90%;
+            max-width: 500px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--input-bg);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--accent);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+        }
+
+        .btn-save {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 12px;
+            background: var(--accent);
+            color: #2b32b2;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.4s;
+            text-transform: uppercase;
+        }
+
+        .btn-save:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(0, 242, 254, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+
+        .back-link:hover { color: white; }
+
+        /* Small floating orbs */
+        .orb {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,242,254,0.3) 0%, transparent 70%);
+            z-index: -1;
+            filter: blur(50px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="orb" style="top: -100px; right: -100px;"></div>
+    <div class="orb" style="bottom: -100px; left: -100px;"></div>
+
+    <div class="edit-container animate__animated animate__zoomIn">
+        <h2>Edit Info</h2>
+        
+        <form id="editForm">
+            <div class="form-group animate__animated animate__fadeInLeft animate__delay-1s">
+                <label>Full Name</label>
+                <input type="text" placeholder="Enter your name" value="John Doe">
+            </div>
+
+            <div class="form-group animate__animated animate__fadeInRight animate__delay-1s">
+                <label>Email Address</label>
+                <input type="email" placeholder="Email" value="john@infoduction.com">
+            </div>
+
+            <div class="form-group animate__animated animate__fadeInLeft animate__delay-2s">
+                <label>Short Bio</label>
+                <textarea rows="4" placeholder="Tell us about yourself...">Passionate about tech and clean UI design.</textarea>
+            </div>
+
+            <button type="submit" class="btn-save animate__animated animate__fadeInUp animate__delay-2s">
+                Save Changes
+            </button>
+        </form>
+
+        <a href="file:///C:/Users/ASHWANI/Desktop/VS%20Code/A6.html" class="back-link">← Welcome</a>
+    </div>
+
+    <script>
+        // Simple alert to show the save button works
+        document.getElementById('editForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.querySelector('.btn-save');
+            btn.innerHTML = "Saved! ✓";
+            btn.style.background = "#00ff88";
+            setTimeout(() => {
+                btn.innerHTML = "Save Changes";
+                btn.style.background = "#00f2fe";
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
