@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Pulse | Infoduction Chat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            --glass-panel: rgba(255, 255, 255, 0.1);
+            --online-green: #00ff88;
+            --accent-blue: #00d2ff;
+        }
+
+        body {
+            background: var(--primary-gradient);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            overflow: hidden;
+        }
+
+        .chat-app {
+            width: 95%;
+            max-width: 1000px;
+            height: 85vh;
+            display: flex;
+            background: var(--glass-panel);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+        }
+
+        /* Sidebar - Online Users */
+        .sidebar {
+            width: 260px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar h3 { font-size: 1rem; margin-bottom: 20px; opacity: 0.7; }
+
+        .user-list { list-style: none; }
+        
+        .user-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .user-item:hover { background: rgba(255,255,255,0.05); }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--online-green);
+            border-radius: 50%;
+            margin-right: 12px;
+            box-shadow: 0 0 10px var(--online-green);
+        }
+
+        /* Main Chat Area */
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .message-area {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Message Bubbles */
+        .msg {
+            max-width: 70%;
+            padding: 12px 18px;
+            border-radius: 15px;
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        .msg.received {
+            background: rgba(255,255,255,0.1);
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+        }
+
+        .msg.sent {
+            background: var(--accent-blue);
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+            color: #002b36;
+        }
+
+        .msg-info {
+            font-size: 0.7rem;
+            margin-bottom: 4px;
+            opacity: 0.6;
+        }
+
+        /* Input Area */
+        .input-box {
+            padding: 20px;
+            background: rgba(0,0,0,0.1);
+            display: flex;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            color: white;
+            outline: none;
+        }
+
+        .send-btn {
+            background: white;
+            border: none;
+            padding: 0 25px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .send-btn:hover { background: var(--accent-blue); transform: scale(1.05); }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="chat-app animate__animated animate__fadeIn">
+        <div class="sidebar animate__animated animate__slideInLeft">
+            <h3>Online Users (4)</h3>
+            <div class="user-list">
+                <div class="user-item">
+                    <div class="status-dot"></div>
+                    <span>Alex Rivera</span>
+                </div>
+                <div class="user-item">
+                    <div class="status-dot"></div>
+                    <span>Sarah Chen</span>
+                </div>
+                <div class="user-item">
+                    <div class="status-dot" style="background: #ffcc00; box-shadow: none;"></div>
+                    <span style="opacity: 0.6;">Marcus (Away)</span>
+                </div>
+                <div class="user-item">
+                    <div class="status-dot"></div>
+                    <span>Jordan Smith</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-main">
+            <div class="chat-header">
+                <h2 style="font-size: 1.2rem; margin: 0;"># Community-General</h2>
+            </div>
+
+            <div class="message-area" id="chatWindow">
+                <div class="msg received animate__animated animate__fadeInLeft">
+                    <div class="msg-info">Sarah Chen • 2:05 PM</div>
+                    Hey everyone! How do you like the new Infoduction layout?
+                </div>
+                <div class="msg sent animate__animated animate__fadeInRight">
+                    <div class="msg-info">You • 2:06 PM</div>
+                    It looks amazing! The animations are so smooth.
+                </div>
+                <div class="msg received animate__animated animate__fadeInLeft">
+                    <div class="msg-info">Alex Rivera • 2:07 PM</div>
+                    Agreed. The glassmorphism effect is top-tier.
+                </div>
+            </div>
+
+            <form class="input-box" id="msgForm">
+                <input type="text" id="userInput" placeholder="Type a message..." autocomplete="off">
+                <button type="submit" class="send-btn">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('msgForm');
+        const input = document.getElementById('userInput');
+        const chatWindow = document.getElementById('chatWindow');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (input.value.trim() === "") return;
+
+            // Create new message element
+            const newMsg = document.createElement('div');
+            newMsg.className = "msg sent animate__animated animate__fadeInUp";
+            newMsg.innerHTML = `
+                <div class="msg-info">You • Just now</div>
+                ${input.value}
+            `;
+
+            chatWindow.appendChild(newMsg);
+            input.value = "";
+            
+            // Scroll to bottom
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        });
+    </script>
+</body>
+</html>
